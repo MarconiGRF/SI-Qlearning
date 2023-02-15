@@ -26,13 +26,5 @@ class Utils:
             text = ''
             for platform in matrix:
                 text += str(round(platform.left, 6)) + ' ' + str(round(platform.right, 6)) + ' ' + str(round(platform.jump, 6)) + '\n'
-            text += '\n'
 
             text_file.write(text)
-
-        # 1.  Apagar o arquivo inteiro
-        # 2.  Pra cada item da matrix
-          # 2.1 Construir a linha da forma -> "platform.left platform.right platform.jump\n"
-        # 3.  Concatenar os valores anteriores em uma string
-        # 4.  Escrever o resultado no arquivo novamente
-        # 5.  Escrever uma linha em branco (97)
