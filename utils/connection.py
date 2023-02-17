@@ -44,6 +44,8 @@ def get_state_reward(s , act):
 
     # Convert the data to decimal int
     state = data['estado']
+    state = state[2:]
+
     reward = data['recompensa']
 
     return state, reward
