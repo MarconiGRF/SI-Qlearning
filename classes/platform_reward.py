@@ -5,3 +5,6 @@ class PlatformReward:
         self.left = left_reward
         self.right = right_reward
         self.jump = jump_reward
+
+    def __str__(self) -> str:
+        return ('Line - ' + str(self.line) + ' Left - ' + str(self.left) + ' Right - ' + str(self.right) + ' Jump - ' + str(self.jump))
