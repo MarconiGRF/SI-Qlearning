@@ -15,7 +15,7 @@ class PlatformReward:
         if (self.line-1) % 4  == 0:
             return Constants.DIRECTION["00"]
         elif (self.line-1) % 4 == 1:
-            return Constants.DIRECTION["01"]
+             return Constants.DIRECTION["01"]
         elif (self.line-1) % 4 == 2:
             return Constants.DIRECTION["10"]
         else:
