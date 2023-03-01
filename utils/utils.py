@@ -35,15 +35,17 @@ class Utils:
         action = ''
         factor_exploration = randint(0,10)
         line_specifies = (platform + 1) * 4 - (int(state[-2:]) % 4) # -> definindo a linha que eu quero manipular
-        if factor_exploration >= 8:
+        if factor_exploration >= 2:
             for i, line in enumerate(matrix): 
                 if i+1 == line_specifies: 
                     action = max(line.left, line.right, line.jump)
                     break 
             if action == line.left:
                 action = 'left'
+                
             elif action == line.right:
                 action = 'right'
+            
             else:
                 action = 'jump'
                     
@@ -52,11 +54,11 @@ class Utils:
         return action
     
     @staticmethod
-    def reward(platform:int, reward:int, state:str, matrix:list, action:str, last_state:str):
+    def reward(reward:int, state:str, matrix:list, action:str, last_state:str):
         q_max = 0
-        line_anterior = (platform + 1) * 4 - (int(last_state[-2:]) % 4) # -> definindo a linha que eu quero manipular.
+        line_anterior = (int(last_state[:-2], 2)+ 1) * 4 - (int(last_state[-2:]) % 4) #linha que recebe recompensa.
         actualy_platform = int(state[:-2], 2) # Usando a plataforma que ele esta agora.
-        actualy_line = (actualy_platform + 1) * 4 - (int(state[-2:]) % 4) #descobrindo a linha.  
+        actualy_line = (actualy_platform + 1) * 4 - (int(state[-2:]) % 4) #Linha atual  
         for i, line in enumerate(matrix): 
             if i+1 == actualy_line: 
                 q_max = max(line.left, line.right, line.jump) #encontrando na matrix
@@ -65,11 +67,14 @@ class Utils:
         for i, line in enumerate(matrix): 
             if i+1 == line_anterior: 
                 if action == 'jump':      
-                    line.jump += 0.5 * ((reward + 0.45 * q_max) - line.jump)  # -> a equação complicada entra aqui. 
+                    line.jump += 0.5 * ((reward + 0.4 * q_max) - line.jump)  
+                    
                 elif action == 'left':   
-                    line.left += 0.5 * ((reward + 0.45 * q_max) - line.left)  # -> a equação complicada entra aqui. 
+                    line.left += 0.5 * ((reward + 0.4 * q_max) - line.left)  
+                    
                 elif action == 'right': 
-                    line.right += 0.5 * ((reward + 0.45 * q_max) - line.right) # -> a equação complicada entra aqui. 
+                    line.right += 0.5 * ((reward + 0.4 * q_max) - line.right) 
+                    
                 break
             
         Utils.write_matrix_to_file(matrix)

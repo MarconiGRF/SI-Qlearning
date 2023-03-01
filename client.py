@@ -20,13 +20,14 @@ if __name__ == '__main__':
         state, reward = get_state_reward(socket, action) 
         platform = (int(state[:-2],2) % 4) # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
         direction = Constants.DIRECTION[str(state[-2:])]
-        Utils.reward(platform, reward, state, matrix, action, last_state) # -> A recompensa recebida sendo aplicada no estado/platforme anterior ao atual
+        Utils.reward(reward, state, matrix, action, last_state) # -> A recompensa recebida sendo aplicada no estado/platforme anterior ao atual
         last_state = state # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
         
         print('action -> ', action)
         print('New platform is -> ' + str(platform))
         print('Direction is -> ' + direction)
         print('Reward from LAST platform+action is -> ' + str(reward))
+        print(state[-2:])
         print(' ')
 
     """
