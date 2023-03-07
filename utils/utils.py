@@ -35,7 +35,7 @@ class Utils:
         action = ''
         factor_exploration = randint(0, 10)
         line_specifies = (platform + 1) * 4 - (int(state[-2:]) % 4) # -> definindo a linha que eu quero manipular
-        if factor_exploration >= 6:
+        if factor_exploration >= 5:
             for i, line in enumerate(matrix): 
                 if i+1 == line_specifies: 
                     action = max(line.left, line.right, line.jump)
