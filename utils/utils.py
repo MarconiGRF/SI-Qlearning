@@ -14,7 +14,7 @@ class Utils:
             lines = text_file.readlines()
             for (index, line) in enumerate(lines):
                 values = line.replace('\n', '').split(' ')
-                platform = PlatformReward(float(values[0]), float(values[1]), float(values[0]), index + 1)
+                platform = PlatformReward(float(values[0]), float(values[1]), float(values[2]), index + 1)#tinha um zero no lugar do 2
                 matrix.append(platform)
 
         return matrix
@@ -31,14 +31,15 @@ class Utils:
             text_file.write(text)
             
     @staticmethod
-    def exploration(state, matrix, platform):  
+    def exploration(state, matrix):
         action = ''
         factor_exploration = randint(0, 10)
-        line_specifies = (platform + 1) * 4 - (int(state[-2:]) % 4) # -> definindo a linha que eu quero manipular
+        line_specifies = (int(state[:-2], 2) + 1) * 4 - (int(state[-2:]) % 4) # -> definindo a linha que eu quero manipular
         if factor_exploration >= 5:
             for i, line in enumerate(matrix): 
                 if i+1 == line_specifies: 
                     action = max(line.left, line.right, line.jump)
+                    print(line.left, ' ', line.right, ' ', line.jump)
                     break 
             if action == line.left:
                 action = 'left'
@@ -50,7 +51,7 @@ class Utils:
                 action = 'jump'
                     
         else:
-            action = Constants.ACTIONS[randint(0,2)]
+            action = Constants.ACTIONS[randint(0, 2)]
         return action
     
     @staticmethod
@@ -67,13 +68,13 @@ class Utils:
         for i, line in enumerate(matrix): 
             if i+1 == line_anterior: 
                 if action == 'jump':      
-                    line.jump += 0.6 * ((reward + 0.42 * q_max) - line.jump)
+                    line.jump += 0.48 * ((reward + 0.45 * q_max) - line.jump)
                     
                 elif action == 'left':   
-                    line.left += 0.6 * ((reward + 0.42 * q_max) - line.left)
+                    line.left += 0.48 * ((reward + 0.45 * q_max) - line.left)
                     
                 elif action == 'right': 
-                    line.right += 0.6 * ((reward + 0.42 * q_max) - line.right)
+                    line.right += 0.48 * ((reward + 0.45 * q_max) - line.right)
                     
                 break
             

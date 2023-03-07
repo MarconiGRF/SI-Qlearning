@@ -16,12 +16,12 @@ if __name__ == '__main__':
     socket = connect(2037)
     while True: 
         
-        action = Utils.exploration(state, matrix, platform)
+        action = Utils.exploration(state, matrix)
         state, reward = get_state_reward(socket, action) 
-        platform = (int(state[:-2],2) % 4) # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
+        platform = (int(state[:-2], 2)) # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
         direction = Constants.DIRECTION[str(state[-2:])]
         Utils.reward(reward, state, matrix, action, last_state) # -> A recompensa recebida sendo aplicada no estado/platforme anterior ao atual
-        last_state = state # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
+        last_state = state  # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
         
         print('action -> ', action)
         print('New platform is -> ' + str(platform))
