@@ -10,7 +10,7 @@ reward = 0
 action = ''
 last_state = '0000000'
 last_action = ''
-#Aqui vocês irão colocar seu algoritmo de aprendizado
+
 if __name__ == '__main__':
     matrix = Utils.get_matrix_from_file()
     socket = connect(2037)
