@@ -14,10 +14,10 @@ last_action = ''
 if __name__ == '__main__':
     matrix = Utils.get_matrix_from_file()
     socket = connect(2037)
-    while True: 
+    while True and reward != 300:
         
         action = Utils.exploration(state, matrix)
-        state, reward = get_state_reward(socket, action) 
+        state, reward = get_state_reward(socket, action)
         platform = (int(state[:-2], 2)) # -> last_state para atualizar o valor na plataforma que estava antes da ultima action
         direction = Constants.DIRECTION[str(state[-2:])]
         Utils.reward(reward, state, matrix, action, last_state) # -> A recompensa recebida sendo aplicada no estado/platforme anterior ao atual
@@ -29,6 +29,8 @@ if __name__ == '__main__':
         print('Reward from LAST platform+action is -> ' + str(reward))
         print(state[-2:])
         print(' ')
+
+    print('WIN!')
 
     """
     NEXT STEPS:
